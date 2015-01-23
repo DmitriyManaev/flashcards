@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: [ :edit, :show, :update ]
+  before_action :find_card, only: [ :edit, :show, :update, :destroy ]
 
   def index
     @cards = Card.all
@@ -35,7 +35,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    Card.find(params[:id]).destroy
+    @card.destroy
     flash[:success] = "Карта удалена"
     redirect_to cards_url
   end
