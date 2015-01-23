@@ -1,0 +1,7 @@
+<div class="card-item">
+  <p class="original-text"><span>Слово: </span><%= @card.original_text %></p>
+  <p class="translated-text"><span>Перевод: </span><%= @card.translated_text %></p>
+  <p class="review-date"><span>Дата просмотра: </span><%= @card.review_date.strftime("%d/%m/%Y") %></p>
+  <%= link_to "Редактировать", edit_card_path, :class => "card-edit-link", :title => "Редактировать" %>
+  <%= link_to "Удалить", @card, method: :delete, :class => "card-delete-link", :title => "Удалить" %>
+</div>
