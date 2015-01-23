@@ -1,0 +1,5 @@
+<%= simple_form_for @card do |f| %>
+  <%= f.input :original_text, placeholder: "Слово" %>
+  <%= f.input :translated_text, placeholder: "Перевод" %>
+  <%= f.button :submit, "Сохранить" %>
+<% end %>

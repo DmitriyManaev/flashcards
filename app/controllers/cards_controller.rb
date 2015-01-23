@@ -1,5 +1,51 @@
 class CardsController < ApplicationController
+  before_action :find_card, only: [ :edit, :show, :update ]
+
   def index
     @cards = Card.all
   end
+
+  def show
+  end
+
+  def new
+    @card = Card.new
+  end
+
+  def create
+    @card = Card.new(card_params)
+    if @card.save
+      flash[:success] = "Карта успешно создана"
+      redirect_to @card
+    else
+      render "new"
+    end
+  end
+
+  def update
+    if @card.update_attributes(card_params)
+      flash[:success] = "Карта обновлена"
+      redirect_to @card
+    else
+      render 'edit'
+    end
+  end
+
+  def edit
+  end
+
+  def destroy
+    Card.find(params[:id]).destroy
+    flash[:success] = "Карта удалена"
+    redirect_to cards_url
+  end
+
+  private
+    def card_params
+      params.require(:card).permit(:original_text, :translated_text)
+    end
+
+    def find_card
+      @card = Card.find(params[:id])
+    end
 end
