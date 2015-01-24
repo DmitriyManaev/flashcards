@@ -16,9 +16,13 @@
   }
   .card-item {
     margin-bottom: 20px;
+    width: 180px;
     p {
       margin: 0;
       font-size: 18px;
+    }
+    .field {
+      margin: 5px 0;
     }
   }
   h2 {
@@ -50,7 +54,7 @@
   }
   .new_card,
   .edit_card {
-    margin: 20px auto;
+    margin-bottom: 0;
     width: 180px;
   }
 }

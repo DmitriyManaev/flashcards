@@ -1,1 +1,4 @@
 <p>Первый в мире удобный менеджер флеш-карточек. Именно так.</p>
+<div class="cards-list">
+  <%= render 'cards/check' rescue render partial: 'cards/fail_check' %>
+</div>

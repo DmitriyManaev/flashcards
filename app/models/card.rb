@@ -2,6 +2,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true, uniqueness: true
   validate :fields_are_not_equal
   before_create :set_review_date
+  scope :actual, -> { where('review_date <= ?', Time.now).order("RANDOM()").first }
 
   private
     def set_review_date
