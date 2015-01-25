@@ -2,20 +2,11 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true, uniqueness: true
   validate :fields_are_not_equal
   before_create :set_review_date
-
-  def self.actual
-    where 'review_date <= ?', Time.now
-  end
-
-  def self.random
-    order "RANDOM()"
-  end
+  scope :actual, -> { where('review_date <= ?', Time.now).order("RANDOM()") }
 
   def correct_answer(translated)
-    if self.translated_text == translated
-      self.review_date = Time.now + 3.days
-      self.save
-      true
+    if self.translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
+      self.update_attributes(review_date: Time.now + 3.days)
     end
   end
 
