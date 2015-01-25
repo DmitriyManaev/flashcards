@@ -5,17 +5,17 @@ class Card < ActiveRecord::Base
   scope :actual, -> { where('review_date <= ?', Time.now).order("RANDOM()") }
 
   def correct_answer(translated)
-    if self.translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
-      self.update_attributes(review_date: Time.now + 3.days)
+    if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
+      update_attributes(review_date: Time.now + 3.days)
     end
   end
 
   private
     def set_review_date
-      self.review_date = Time.now
+      review_date = Time.now
     end
 
     def fields_are_not_equal
-      self.errors.add(:base, 'Original text and translated text cannot be equal.') if self.original_text == self.translated_text
+      errors.add(:base, 'Original text and translated text cannot be equal.') if original_text == translated_text
     end
 end
