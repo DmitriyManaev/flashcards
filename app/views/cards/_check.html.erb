@@ -1,8 +1,9 @@
 <div class="card-item">
-  <p class="review-date"><%= @card.review_date.strftime("%d/%m/%Y") %></p>
+  <p class="review-date"><%= @card.review_date.strftime "%d/%m/%Y"  %></p>
   <p class="original-text"><%= @card.original_text %></p>
-  <%= form_tag(root_path) do %>
+  <%= form_tag root_path  do %>
     <%= text_field_tag 'translated_text', nil, placeholder: "Перевод", class: "field" %>
+    <%= hidden_field_tag 'card_id', @card.id %>
     <%= button_tag 'Проверить', class: "check-card-button" %>
   <% end %>
 </div>

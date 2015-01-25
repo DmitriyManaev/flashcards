@@ -1,18 +1,13 @@
 class StaticPagesController < ApplicationController
 
   def home
-    @card = Card.actual if @card.nil?
-    @translated_text = params[:translated_text]
-    if @translated_text
-      if ( @card[:translated_text] == @translated_text )
-        flash[:success] = "Правильно"
-        @card[:review_date] = Time.now + 3.days
-        @card.save
-      else
-        flash[:fail] = "Не правильно"
-      end
-      redirect_to controller: 'static_pages', action: 'home'
-    end
+    params[:card_id] ? @card = Card.find(params[:card_id]) : @card = Card.actual.random.first
+    check_card if params[:translated_text]
   end
 
+  private
+    def check_card
+      @card.correct_answer(params[:translated_text]) ? flash[:success] = "Правильно" : flash[:fail] = "Не правильно"
+      redirect_to :root
+    end
 end
