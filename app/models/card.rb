@@ -7,12 +7,14 @@ class Card < ActiveRecord::Base
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
       update_attributes(review_date: Time.now + 3.days)
+    else
+      return false
     end
   end
 
   private
     def set_review_date
-      review_date = Time.now
+      self.review_date = Time.now
     end
 
     def fields_are_not_equal

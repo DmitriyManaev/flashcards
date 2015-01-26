@@ -11,6 +11,6 @@ class StaticPagesController < ApplicationController
     else
       flash[:fail] = "Не правильно"
     end
-    redirect_to :root
+    redirect_to root_path
   end
 end
