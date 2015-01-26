@@ -2,7 +2,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true, uniqueness: true
   validate :fields_are_not_equal
   before_create :set_review_date
-  scope :actual, -> { where('review_date <= ?', Time.now).order("RANDOM()") }
+  scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
@@ -18,6 +18,8 @@ class Card < ActiveRecord::Base
     end
 
     def fields_are_not_equal
-      errors.add(:base, 'Original text and translated text cannot be equal.') if original_text == translated_text
+      if self.original_text == self.translated_text
+        self.errors.add(:base, "Original text and translated text cannot be equal.")
+      end
     end
 end

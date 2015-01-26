@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-
   def home
     @card = Card.actual.first
   end
