@@ -1,7 +1,7 @@
 require "rails_helper"
 describe "Home", type: :feature  do
   before :each do
-    card = FactoryGirl.create(:card)
+    FactoryGirl.create(:card)
     visit root_path
   end
 
