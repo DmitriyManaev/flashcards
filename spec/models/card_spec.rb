@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Card do
   it "original and translated texts cannot be equal" do
