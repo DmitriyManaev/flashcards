@@ -1,10 +1,7 @@
 require "rails_helper"
 describe "Home", type: :feature  do
-  let!(:card) { Card.create(original_text: "example",
-                            translated_text: "пример")
-  }
-
   before :each do
+    card = FactoryGirl.create(:card)
     visit root_path
   end
 
