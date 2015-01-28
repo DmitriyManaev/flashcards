@@ -9,18 +9,40 @@ describe Card do
 
   let(:card) { Card.create!(original_text: "test", translated_text: "тест") }
 
-  it "correct created" do
-    expect(card.original_text).to eq("test")
-    expect(card.translated_text).to eq("тест")
-    expect(card.review_date).to_not be_nil
-    expect(card.review_date).to be < Time.now
+  context "created with" do
+    it "correct original text" do
+      expect(card.original_text).to eq("test")
+    end
+
+    it "correct translated text" do
+      expect(card.translated_text).to eq("тест")
+    end
+
+    it "review date not be nil" do
+      expect(card.review_date).to_not be_nil
+    end
+
+    it "review date less than currently" do
+      expect(card.review_date).to be < Time.now
+    end
   end
 
-  it "checked answer and changed review date" do
-    expect(card.correct_answer("тест")).to be true
-    expect(card.correct_answer(" Тест")).to be true
-    expect(card.correct_answer("тЕСТ ")).to be true
-    expect(card.correct_answer("тес")).to be false
-    expect(card.review_date > Time.now + 2.days).to be true
+  context "check answer" do
+    it "with right text" do
+      expect(card.correct_answer("тест")).to be true
+    end
+
+    it "uppercase text with before and after spaces" do
+      expect(card.correct_answer(" ТеСТ ")).to be true
+    end
+
+    it "with wrong text" do
+      expect(card.correct_answer("тес")).to be false
+    end
+
+    it "change review date" do
+      card.correct_answer("тест")
+      expect(card.review_date > Time.now + 2.days).to be true
+    end
   end
 end
