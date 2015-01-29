@@ -10,7 +10,7 @@
 <body>
   <section id="container">
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "alert alert-#{key}")%>
+      <%= content_tag(:div, value, class: "alert alert-#{key}", id: "alert-#{key}" )%>
     <% end %>
     <header class="clearfix">
       <h1>Флэшкарточкер</h1>
