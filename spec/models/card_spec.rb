@@ -8,8 +8,9 @@ describe Card do
     }.to raise_error
   end
 
-  let(:card) { FactoryGirl.create(:card, original_text: "test",
-                                         translated_text: "тест")
+  let(:card) { FactoryGirl.create(:card,
+                                  original_text: "test",
+                                  translated_text: "тест")
   }
 
   context "created with" do
