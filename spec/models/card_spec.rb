@@ -3,11 +3,14 @@ require "rails_helper"
 describe Card do
   it "original and translated texts cannot be equal" do
     expect { Card.create!(original_text: "test",
-                          translated_text: "test")
+                          translated_text: "test",
+                          user_id: 1)
     }.to raise_error
   end
 
-  let(:card) { Card.create!(original_text: "test", translated_text: "тест") }
+  let(:card) { FactoryGirl.create(:card, original_text: "test",
+                                         translated_text: "тест")
+  }
 
   context "created with" do
     it "correct original text" do
