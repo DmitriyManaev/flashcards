@@ -1,7 +1,7 @@
 require "rails_helper"
 describe "Check card on home page" do
   before :each do
-    FactoryGirl.create(:card)
+    FactoryGirl.create(:card, translated_text: "пример")
     visit root_path
   end
 
