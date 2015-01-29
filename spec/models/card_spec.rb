@@ -3,8 +3,7 @@ require "rails_helper"
 describe Card do
   it "original and translated texts cannot be equal" do
     expect { Card.create!(original_text: "test",
-                          translated_text: "test",
-                          user_id: 1)
+                          translated_text: "test")
     }.to raise_error
   end
 
