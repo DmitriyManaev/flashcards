@@ -1,6 +1,8 @@
 require "rails_helper"
 
 describe Card do
+  let(:user) { FactoryGirl.create(:user) }
+
   it "original and translated texts cannot be equal" do
     expect { Card.create!(original_text: "test",
                           translated_text: "test")

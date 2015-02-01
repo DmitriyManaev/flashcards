@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  validates :original_text, :translated_text, presence: true, uniqueness: true
+  validates :original_text, :translated_text, presence: true
   validates :user_id, presence: true
   validate :fields_are_not_equal
   before_create :set_review_date

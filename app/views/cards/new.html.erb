@@ -1,2 +1,6 @@
 <h2>Создание флешкарты</h2>
-<%= render "cards/form" %>
+<%= simple_form_for @card, html: { class: "form" } do |f| %>
+  <%= f.input :original_text, placeholder: "Слово" %>
+  <%= f.input :translated_text, placeholder: "Перевод" %>
+  <%= f.button :submit, "Сохранить" %>
+<% end %>

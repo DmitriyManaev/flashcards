@@ -1,24 +1,24 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: [ :edit, :show, :update, :destroy ]
+  before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
-    @cards = Card.all
+    @cards = current_user.cards.all
   end
 
   def show
   end
 
   def new
-    @card = Card.new
+    @card = current_user.cards.new
   end
 
   def create
-    @card = Card.new(card_params)
+    @card = current_user.cards.build(card_params)
     if @card.save
       flash[:success] = "Карта успешно создана"
       redirect_to @card
     else
-      render "new"
+      render :new
     end
   end
 
@@ -27,8 +27,8 @@ class CardsController < ApplicationController
       flash[:success] = "Карта обновлена"
       redirect_to @card
     else
-      render 'edit'
-    end
+      render :edit
+    end.id
   end
 
   def edit
@@ -46,6 +46,6 @@ class CardsController < ApplicationController
     end
 
     def find_card
-      @card = Card.find(params[:id])
+      @card = current_user.cards.find(params[:id])
     end
 end
