@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_card, only: [ :edit, :show, :update, :destroy ]
+  before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
     @cards = current_user.cards.all

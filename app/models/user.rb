@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
   validates :email, presence: true, uniqueness: true
-  has_many  :cards, dependent: :destroy
+  has_many :cards, dependent: :destroy
 end
