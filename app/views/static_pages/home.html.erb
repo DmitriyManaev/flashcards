@@ -1,16 +1,20 @@
 <p>Первый в мире удобный менеджер флеш-карточек. Именно так.</p>
-<div class="cards-list">
-  <% if @card %>
-    <div class="card-item">
-      <p class="review-date"><%= @card.review_date.strftime "%d/%m/%Y"  %></p>
-      <p class="original-text"><%= @card.original_text %></p>
-      <%= form_tag check_card_path do %>
-        <%= text_field_tag 'translated_text', nil, placeholder: "Перевод", class: "field" %>
-        <%= hidden_field_tag 'card_id', @card.id %>
-        <%= button_tag 'Проверить', class: "check-card-button" %>
-      <% end %>
-    </div>
-  <% else %>
-    <p>Карт на сегодня больше нет!</p>
-  <% end %>
-</div>
+<% if current_user %>
+  <div class="cards-list">
+    <% if @card %>
+      <div class="card-item">
+        <p class="review-date"><%= @card.review_date.strftime "%d/%m/%Y"  %></p>
+        <p class="original-text"><%= @card.original_text %></p>
+        <%= form_tag check_card_path, class: "form" do %>
+          <%= text_field_tag 'translated_text', nil, placeholder: "Перевод", class: "field" %>
+          <%= hidden_field_tag 'card_id', @card.id %>
+          <%= button_tag 'Проверить', class: "btn" %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>Карт на сегодня больше нет!</p>
+    <% end %>
+  </div>
+<% else %>
+  <p>Для начала авторизуйтесь или зарегистрируйтесь</p>
+<% end %>

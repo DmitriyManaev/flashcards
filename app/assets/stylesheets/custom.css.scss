@@ -21,25 +21,21 @@
       margin: 0;
       font-size: 18px;
     }
-    .field {
-      margin: 5px 0;
-    }
   }
   h2 {
     font-size: 18px;
     text-align: center;
   }
-  .simple_form {
-    .input {
-      margin-bottom: 10px;
-      .field {
-        border-radius: 3px;
-        padding: 3px 5px;
-        border: 1px solid #aaa;
-      }
-    }
+  .form {
+    width: 180px;
     .field_with_errors .field {
       border: 1px solid #ff0000;
+    }
+    .field {
+      border-radius: 3px;
+      padding: 3px 5px;
+      border: 1px solid #aaa;
+      margin: 5px 0;
     }
     .btn {
       width: 100%;
@@ -48,15 +44,12 @@
       border: none;
       background: aqua;
     }
-    h2 {
-      font-size: 18px;
-    }
   }
-  .new_card,
-  .edit_card {
-    margin-bottom: 0;
-    width: 180px;
-  }
+}
+.user-nav-links {
+  float: right;
+  width: 160px;
+  margin: 16px;
 }
 .navigation-links {
   float: right;
@@ -80,4 +73,3 @@ html[xmlns].clearfix {
 * html .clearfix {
   height: 1%;
 }
-

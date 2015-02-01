@@ -1,0 +1,8 @@
+<h2>Регистрация</h2>
+<%= simple_form_for @user, html: { class: "form" } do |f| %>
+  <%= f.input :email, placeholder: "E-mail" %>
+  <%= f.input :password, placeholder: "Пароль" %>
+  <%= f.input :password_confirmation, placeholder: "Подтвердите пароль" %>
+  <%= f.button :submit, "Отправить" %>
+<% end %>
+<p>Длина пароля не менее 6 символов!</p>

@@ -1,0 +1,9 @@
+<h2>Авторизация</h2>
+<%= form_tag user_sessions_path, class: "form" do %>
+  <%= text_field_tag :email, nil, placeholder: "E-mail", class: "field"%>
+  <%= password_field_tag :password, nil, placeholder: "Пароль", class: "field" %>
+  <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+  <%= label_tag :remember_me, "Запомнить меня" %>
+  <%= button_tag "Отправить", class: "btn" %>
+<% end %>
+<%= link_to "Авторизация через Twitter", auth_at_provider_path(provider: :twitter) %>

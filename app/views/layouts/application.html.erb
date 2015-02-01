@@ -14,10 +14,20 @@
     <% end %>
     <header class="clearfix">
       <h1>Флэшкарточкер</h1>
-      <ul class="navigation-links">
-        <li><%= link_to 'Все карточки', cards_path %></li>
-        <li><%= link_to 'Добавить карточку', new_card_path %></a></li>
-      </ul>
+      <div class="user-nav-links">
+        <% if current_user %>
+          <%= link_to "Выход", logout_path %>
+        <% else %>
+          <%= link_to "Вход", login_path %> |
+          <%= link_to "Регистрация", signup_path %>
+        <% end %>
+      </div>
+      <% if current_user %>
+        <ul class="navigation-links">
+          <li><%= link_to 'Все карточки', cards_path %></li>
+          <li><%= link_to 'Добавить карточку', new_card_path %></a></li>
+        </ul>
+      <% end %>
     </header>
 
     <section class="content">

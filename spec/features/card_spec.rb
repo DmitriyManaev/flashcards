@@ -2,7 +2,10 @@ require "rails_helper"
 describe "Check card on home page" do
   before :each do
     FactoryGirl.create(:card, translated_text: "пример")
-    visit root_path
+    visit login_path
+    fill_in "email", with: "example@mail.ru"
+    fill_in "password", with: "password"
+    click_button "Отправить"
   end
 
   it "with right answer" do
