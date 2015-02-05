@@ -5,11 +5,11 @@ CarrierWave.configure do |config|
       provider:               "AWS",
       aws_access_key_id:      ENV["aws_access_key_id"],
       aws_secret_access_key:  ENV["aws_secret_access_key"],
-      region:                 "us-east-1",
-      host:                   "s3-website-us-east-1.amazonaws.com",
-      endpoint:               "http://s3-website-us-east-1.amazonaws.com"
+      region:                 ENV["aws_region"],
+      host:                   ENV["aws_host"],
+      endpoint:               ENV["aws_endpoint"],
+      directory:              ENV["aws_directory"]
     }
-    config.fog_directory  = "myfilesflash"
-    config.fog_public     = false
+    config.fog_public = false
   end
 end
