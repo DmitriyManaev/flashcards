@@ -2,9 +2,10 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true
   validates :user_id, presence: true
   validate :fields_are_not_equal
-  before_create :set_review_date
-  scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
   belongs_to :user
+  before_create :set_review_date
+  mount_uploader :image, ImageUploader
+  scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip

@@ -3,6 +3,7 @@
   <div class="cards-list">
     <% if @card %>
       <div class="card-item">
+        <%= image_tag @card.image.url.to_s if @card.image %>
         <p class="review-date"><%= @card.review_date.strftime "%d/%m/%Y"  %></p>
         <p class="original-text"><%= @card.original_text %></p>
         <%= form_tag check_card_path, class: "form" do %>
