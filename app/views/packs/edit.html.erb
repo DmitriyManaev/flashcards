@@ -1,0 +1,7 @@
+<h1>Редактирование колоды</h1>
+<div class="edit-form">
+  <%= simple_form_for @pack, html: { class: "form" } do |f| %>
+    <%= f.input :title, placeholder: "Название колоды" %>
+    <%= f.button :submit, "Сохранить", class: "button" %>
+  <% end %>
+</div>

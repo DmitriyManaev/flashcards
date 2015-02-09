@@ -1,0 +1,8 @@
+<h1>Создание колоды</h1>
+<div class="edit-form">
+  <%= simple_form_for @pack, html: { class: "form" } do |f| %>
+    <%= f.input :title, placeholder: "Название колоды" %>
+    <%= f.input :image, as: :file %>
+    <%= f.button :submit, "Сохранить", class: "button" %>
+  <% end %>
+</div>

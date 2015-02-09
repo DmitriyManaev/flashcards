@@ -9,6 +9,7 @@ describe Card do
     }.to raise_error
   end
 
+  let(:pack) { FactoryGirl.create(:pack) }
   let(:card) { FactoryGirl.create(:card,
                                   original_text: "test",
                                   translated_text: "тест")

@@ -1,22 +1,23 @@
 class CardsController < ApplicationController
+  before_action :find_pack, only: [:index, :new, :create, :edit, :show, :update, :destroy]
   before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
-    @cards = current_user.cards.all
+    @cards = @pack.cards.all
   end
 
   def show
   end
 
   def new
-    @card = current_user.cards.new
+    @card = @pack.cards.new
   end
 
   def create
-    @card = current_user.cards.build(card_params)
+    @card = @pack.cards.build(card_params)
     if @card.save
       flash[:success] = "Карта успешно создана"
-      redirect_to @card
+      redirect_to [@pack, @card]
     else
       render :new
     end
@@ -25,10 +26,10 @@ class CardsController < ApplicationController
   def update
     if @card.update_attributes(card_params)
       flash[:success] = "Карта обновлена"
-      redirect_to @card
+      redirect_to [@pack, @card]
     else
       render :edit
-    end.id
+    end
   end
 
   def edit
@@ -37,7 +38,7 @@ class CardsController < ApplicationController
   def destroy
     @card.destroy
     flash[:success] = "Карта удалена"
-    redirect_to cards_url
+    redirect_to pack_cards_path
   end
 
   private
@@ -45,7 +46,11 @@ class CardsController < ApplicationController
       params.require(:card).permit(:original_text, :translated_text, :image)
     end
 
+    def find_pack
+      @pack = current_user.packs.find(params[:pack_id])
+    end
+
     def find_card
-      @card = current_user.cards.find(params[:id])
+      @card = @pack.cards.find(params[:id])
     end
 end
