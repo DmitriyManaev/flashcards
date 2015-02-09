@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_pack, only: [:index, :new, :create, :edit, :show, :update, :destroy]
+  before_action :find_pack
   before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -42,15 +42,16 @@ class CardsController < ApplicationController
   end
 
   private
-    def card_params
-      params.require(:card).permit(:original_text, :translated_text, :image)
-    end
 
-    def find_pack
-      @pack = current_user.packs.find(params[:pack_id])
-    end
+  def card_params
+    params.require(:card).permit(:original_text, :translated_text, :image)
+  end
 
-    def find_card
-      @card = @pack.cards.find(params[:id])
-    end
+  def find_pack
+    @pack = current_user.packs.find(params[:pack_id])
+  end
+
+  def find_card
+    @card = @pack.cards.find(params[:id])
+  end
 end

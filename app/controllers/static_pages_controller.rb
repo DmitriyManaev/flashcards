@@ -21,11 +21,12 @@ class StaticPagesController < ApplicationController
   end
 
   private
-    def current_pack
-      if session[:pack_id]
-        current_user.packs.find(session[:pack_id])
-      else
-        current_user.packs.first
-      end
+
+  def current_pack
+    if session[:pack_id]
+      current_user.packs.find(session[:pack_id])
+    else
+      current_user.packs.first
     end
+  end
 end

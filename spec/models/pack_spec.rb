@@ -1,5 +1,4 @@
-require 'rails_helper'
-
+require "rails_helper"
 describe Pack do
   let(:pack) { FactoryGirl.create(:pack, title: "Новая колода") }
 

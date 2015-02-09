@@ -49,15 +49,16 @@ class PacksController < ApplicationController
   end
 
   private
-    def pack_params
-      params.require(:pack).permit(:title, :image)
-    end
 
-    def find_pack
-      @pack = current_user.packs.find(params[:id])
-    end
+  def pack_params
+    params.require(:pack).permit(:title, :image)
+  end
 
-    def get_current_pack_numb
-      @current_pack = session[:pack_id]
-    end
+  def find_pack
+    @pack = current_user.packs.find(params[:id])
+  end
+
+  def get_current_pack_numb
+    @current_pack = session[:pack_id]
+  end
 end
