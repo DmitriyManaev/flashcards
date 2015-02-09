@@ -16,13 +16,14 @@ class Card < ActiveRecord::Base
   end
 
   private
-    def set_review_date
-      self.review_date = Time.now
-    end
 
-    def fields_are_not_equal
-      if self.original_text == self.translated_text
-        errors.add(:base, "Original and translated text cannot be equal.")
-      end
+  def set_review_date
+    self.review_date = Time.now
+  end
+
+  def fields_are_not_equal
+    if self.original_text == self.translated_text
+      errors.add(:base, "Original and translated text cannot be equal.")
     end
+  end
 end

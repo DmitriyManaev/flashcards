@@ -4,4 +4,7 @@ class Pack < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   belongs_to :user, required: true
   mount_uploader :image, ImageUploader
+  def self.current
+    where(current: true).first
+  end
 end

@@ -42,9 +42,15 @@ class PacksController < ApplicationController
   end
 
   def set_current_pack
-    session[:pack_id] = params[:pack_id]
-    respond_to do |format|
-      format.js
+    if pack = current_user.packs.current
+      pack.update_attributes(current: false)
+    end
+
+    if @current_pack = current_user.packs.find(params[:pack_id])
+      @current_pack.update_attributes(current: true)
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -59,6 +65,8 @@ class PacksController < ApplicationController
   end
 
   def get_current_pack_numb
-    @current_pack = session[:pack_id]
+    if pack = current_user.packs.current
+      @current_pack = pack.id
+    end
   end
 end

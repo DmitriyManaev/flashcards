@@ -23,10 +23,7 @@ class StaticPagesController < ApplicationController
   private
 
   def current_pack
-    if session[:pack_id]
-      current_user.packs.find(session[:pack_id])
-    else
-      current_user.packs.first
-    end
+    pack = current_user.packs.current
+    return pack ? pack : current_user.packs.first
   end
 end

@@ -1,5 +1,5 @@
 <h1>Колода &laquo<%= @pack.title %>&raquo</h1>
-<div class="pack-item<%= " current" if @current_pack == @pack.id.to_s %>" id="pack-item<%= @pack.id %>">
+<div class="pack-item<%= " current" if @current_pack == @pack.id %>" id="pack-item<%= @pack.id %>">
   <% if @pack.image? %>
     <%= image_tag @pack.image.url.to_s %>
   <% else %>
@@ -7,7 +7,7 @@
   <% end %>
   <div class="pack-buttons">
     <%= link_to "Редактировать", edit_pack_path, class: "button yellow", title: "Редактировать" %>
-    <% if @current_pack != @pack.id.to_s %>
+    <% if @current_pack != @pack.id %>
       <%= form_tag set_current_pack_path, remote: true, class: "form make-current" do |f| %>
         <%= hidden_field_tag :pack_id, @pack.id %>
         <%= button_tag "Сделать текущей", class: "button blue", id: "make-current-btn", title: "Сделать текущей" %>
