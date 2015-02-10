@@ -2,11 +2,7 @@
 <div class="packs-list">
   <% @packs.each do |pack| %>
     <div class="pack-item<%= " current" if @current_pack == pack.id %>">
-      <% if pack.image? %>
-        <%= image_tag pack.image.url.to_s %>
-      <% else %>
-        <%= image_tag "no_image.jpg" %>
-      <% end %>
+      <%= image_tag pack.image.url.to_s %>
       <%= link_to pack.title, pack, class: "pack-item__title", title: "Смотреть" %>
     </div>
   <% end %>

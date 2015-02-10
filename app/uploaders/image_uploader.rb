@@ -7,6 +7,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [210, 126]
   end
 
+  def default_url
+    "no_image.jpg"
+  end
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}"
   end

@@ -2,11 +2,7 @@
   <% if @card %>
     <div class="main-card-item">
       <div class="review-date">Дата: <%= @card.review_date.strftime "%d/%m/%Y" %></div>
-      <% if @card.image? %>
-        <%= image_tag @card.image.url.to_s %>
-      <% else %>
-        <%= image_tag "no_image.jpg" %>
-      <% end %>
+      <%= image_tag @card.image.url.to_s %>
       <div class="original-text"><%= @card.original_text %></div>
       <%= form_tag check_card_path, class: "form check-card-form" do %>
         <%= text_field_tag "translated_text", nil, placeholder: "Перевод", class: "field" %>
