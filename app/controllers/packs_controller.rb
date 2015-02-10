@@ -36,18 +36,16 @@ class PacksController < ApplicationController
   end
 
   def destroy
+    if @pack.id == current_user.current_pack_id
+      current_user.update_attributes(current_pack_id: nil)
+    end
     @pack.destroy
     flash[:success] = "Колода удалена"
     redirect_to packs_url
   end
 
   def set_current_pack
-    if pack = current_user.packs.current
-      pack.update_attributes(current: false)
-    end
-
-    if @current_pack = current_user.packs.find(params[:pack_id])
-      @current_pack.update_attributes(current: true)
+    if current_user.update_attributes(current_pack_id: params[:pack_id])
       respond_to do |format|
         format.js
       end
@@ -65,8 +63,6 @@ class PacksController < ApplicationController
   end
 
   def get_current_pack_numb
-    if pack = current_user.packs.current
-      @current_pack = pack.id
-    end
+    @current_pack = current_user.current_pack_id
   end
 end

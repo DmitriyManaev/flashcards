@@ -23,7 +23,9 @@ class StaticPagesController < ApplicationController
   private
 
   def current_pack
-    pack = current_user.packs.current
+    if pack_id = current_user.current_pack_id
+      pack = current_user.packs.find(pack_id)
+    end
     pack ? pack : current_user.packs.first
   end
 end
