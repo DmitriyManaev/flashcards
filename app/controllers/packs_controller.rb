@@ -1,6 +1,6 @@
 class PacksController < ApplicationController
   before_action :find_pack, only: [:edit, :show, :update, :destroy]
-  before_action :get_current_pack_numb, only: [:index, :show]
+  after_action :remove_current_pack_id, only: :destroy
 
   def index
     @packs = current_user.packs.all
@@ -36,9 +36,6 @@ class PacksController < ApplicationController
   end
 
   def destroy
-    if @pack.id == current_user.current_pack_id
-      current_user.update_attributes(current_pack_id: nil)
-    end
     @pack.destroy
     flash[:success] = "Колода удалена"
     redirect_to packs_url
@@ -62,7 +59,9 @@ class PacksController < ApplicationController
     @pack = current_user.packs.find(params[:id])
   end
 
-  def get_current_pack_numb
-    @current_pack = current_user.current_pack_id
+  def remove_current_pack_id
+    if @pack.id == current_user.current_pack_id
+      current_user.update_attributes(current_pack_id: nil)
+    end
   end
 end

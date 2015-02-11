@@ -2,16 +2,13 @@ class StaticPagesController < ApplicationController
   skip_before_action :require_login, only: [:home]
 
   def home
-    if current_user
-      if @pack = current_pack
-        @card = @pack.cards.actual.first
-      end
+    if current_user && current_pack
+      @card = current_pack.cards.actual.first
     end
   end
 
   def check_card
-    @pack = current_pack
-    @card = @pack.cards.find(params[:card_id])
+    @card = current_pack.cards.find(params[:card_id])
     if @card.correct_answer(params[:translated_text])
       flash[:success] = "Правильно"
     else
@@ -23,9 +20,10 @@ class StaticPagesController < ApplicationController
   private
 
   def current_pack
-    if pack_id = current_user.current_pack_id
-      pack = current_user.packs.find(pack_id)
+    if current_user.current_pack
+      current_user.current_pack
+    else
+      current_user.packs.first
     end
-    pack ? pack : current_user.packs.first
   end
 end

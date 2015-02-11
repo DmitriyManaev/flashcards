@@ -1,7 +1,7 @@
 <h1>Колоды</h1>
 <div class="packs-list">
   <% @packs.each do |pack| %>
-    <div class="pack-item<%= " current" if @current_pack == pack.id %>">
+    <div class="pack-item<%= " current" if current_user.current_pack_id == pack.id %>">
       <%= image_tag pack.image.url.to_s %>
       <%= link_to pack.title, pack, class: "pack-item__title", title: "Смотреть" %>
     </div>
