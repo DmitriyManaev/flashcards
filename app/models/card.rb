@@ -3,9 +3,11 @@ class Card < ActiveRecord::Base
   validates :pack_id, presence: true
   validate :fields_are_not_equal
   belongs_to :pack, required: true
+  belongs_to :user
   before_create :set_review_date
   mount_uploader :image, ImageUploader
-  scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
+  scope :actual, -> { where("review_date <= ?", Time.now) }
+  scope :random, -> { order("RANDOM()") }
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip

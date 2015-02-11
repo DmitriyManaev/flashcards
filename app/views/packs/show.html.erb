@@ -1,9 +1,9 @@
 <h1>Колода &laquo<%= @pack.title %>&raquo</h1>
-<div class="pack-item<%= " current" if current_user.current_pack_id == @pack.id %>" id="pack-item<%= @pack.id %>">
+<div class="pack-item<%= " current" if @pack.current? current_user %>" id="pack-item<%= @pack.id %>">
   <%= image_tag @pack.image.url.to_s %>
   <div class="pack-buttons">
     <%= link_to "Редактировать", edit_pack_path, class: "button yellow", title: "Редактировать" %>
-    <% if current_user.current_pack_id != @pack.id %>
+    <% if !@pack.current? current_user %>
       <%= form_tag set_current_pack_path, remote: true, class: "form make-current" do |f| %>
         <%= hidden_field_tag :pack_id, @pack.id %>
         <%= button_tag "Сделать текущей", class: "button blue", id: "make-current-btn", title: "Сделать текущей" %>

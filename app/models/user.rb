@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
   has_many :authentications, dependent: :destroy
   has_many :packs, dependent: :destroy
+  has_many :cards, through: :packs
   belongs_to :current_pack, class_name: "Pack"
   authenticates_with_sorcery!
   accepts_nested_attributes_for :authentications

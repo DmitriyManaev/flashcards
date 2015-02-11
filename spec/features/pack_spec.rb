@@ -2,10 +2,7 @@ require "rails_helper"
 describe "Pack" do
   before do
     FactoryGirl.create(:user)
-    visit login_path
-    fill_in "email", with: "example@mail.ru"
-    fill_in "password", with: "password"
-    click_button "Отправить"
+    login
   end
 
   it "login" do
