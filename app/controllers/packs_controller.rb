@@ -1,6 +1,5 @@
 class PacksController < ApplicationController
   before_action :find_pack, only: [:edit, :show, :update, :destroy]
-  after_action :remove_current_pack_id, only: :destroy
 
   def index
     @packs = current_user.packs.all
@@ -42,7 +41,7 @@ class PacksController < ApplicationController
   end
 
   def set_current_pack
-    if current_user.update_attributes(current_pack_id: params[:pack_id])
+    if current_user.update_attribute(:current_pack_id, params[:pack_id])
       respond_to do |format|
         format.js
       end
@@ -57,11 +56,5 @@ class PacksController < ApplicationController
 
   def find_pack
     @pack = current_user.packs.find(params[:id])
-  end
-
-  def remove_current_pack_id
-    if @pack.id == current_user.current_pack_id
-      current_user.update_attributes(current_pack_id: nil)
-    end
   end
 end

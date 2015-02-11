@@ -6,8 +6,7 @@ class Card < ActiveRecord::Base
   belongs_to :user
   before_create :set_review_date
   mount_uploader :image, ImageUploader
-  scope :actual, -> { where("review_date <= ?", Time.now) }
-  scope :random, -> { order("RANDOM()") }
+  scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip

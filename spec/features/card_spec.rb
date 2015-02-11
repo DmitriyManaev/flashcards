@@ -1,5 +1,21 @@
 require "rails_helper"
 describe "Card" do
+  describe "home page" do
+    before :each do
+      visit root_path
+    end
+
+    it "for non logged users" do
+      expect(page).to have_content("Войдите или зарегистрируйтесь")
+    end
+
+    it "for logged users without actual cards" do
+      FactoryGirl.create(:user)
+      login
+      expect(page).to have_content("Карт на сегодня больше нет!")
+    end
+  end
+
   describe "new card" do
     before do
       FactoryGirl.create(:pack, title: "Новая колода")

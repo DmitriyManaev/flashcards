@@ -4,9 +4,9 @@ class StaticPagesController < ApplicationController
   def home
     if current_user
       if current_user.current_pack
-        @card = current_user.current_pack.cards.actual.random.first
+        @card = current_user.current_pack.cards.actual.first
       else
-        @card = current_user.cards.random.first
+        @card = current_user.cards.actual.first
       end
     end
   end
