@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203094525) do
+ActiveRecord::Schema.define(version: 20150210175117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,11 +30,21 @@ ActiveRecord::Schema.define(version: 20150203094525) do
     t.datetime "review_date"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "user_id"
+    t.integer  "pack_id"
     t.string   "image"
   end
 
-  add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
+  add_index "cards", ["pack_id"], name: "index_cards_on_pack_id", using: :btree
+
+  create_table "packs", force: :cascade do |t|
+    t.string   "title"
+    t.string   "image"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "packs", ["user_id"], name: "index_packs_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -44,8 +54,10 @@ ActiveRecord::Schema.define(version: 20150203094525) do
     t.string   "salt"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.integer  "current_pack_id"
   end
 
+  add_index "users", ["current_pack_id"], name: "index_users_on_current_pack_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
 

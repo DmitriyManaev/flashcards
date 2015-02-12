@@ -2,7 +2,13 @@ class StaticPagesController < ApplicationController
   skip_before_action :require_login, only: [:home]
 
   def home
-    @card = current_user.cards.actual.first if current_user
+    if current_user
+      if current_user.current_pack
+        @card = current_user.current_pack.cards.actual.first
+      else
+        @card = current_user.cards.actual.first
+      end
+    end
   end
 
   def check_card

@@ -1,0 +1,9 @@
+<h1>Колоды</h1>
+<div class="packs-list">
+  <% @packs.each do |pack| %>
+    <div class="pack-item<%= " current" if pack.current? %>">
+      <%= image_tag pack.image.url.to_s %>
+      <%= link_to pack.title, pack, class: "pack-item__title", title: "Смотреть" %>
+    </div>
+  <% end %>
+</div>

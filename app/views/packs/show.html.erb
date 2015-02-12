@@ -1,0 +1,23 @@
+<h1>Колода &laquo<%= @pack.title %>&raquo</h1>
+<div class="pack-item<%= " current" if @pack.current? %>" id="pack-item<%= @pack.id %>">
+  <%= image_tag @pack.image.url.to_s %>
+  <div class="pack-buttons">
+    <%= link_to "Редактировать", edit_pack_path, class: "button yellow", title: "Редактировать" %>
+    <% if !@pack.current? %>
+      <%= form_tag set_current_pack_path, remote: true, class: "form make-current" do |f| %>
+        <%= hidden_field_tag :pack_id, @pack.id %>
+        <%= button_tag "Сделать текущей", class: "button blue", id: "make-current-btn", title: "Сделать текущей" %>
+      <% end %>
+    <% end %>
+    <%= link_to "Удалить", @pack, method: :delete, class: "button red", title: "Удалить" %>
+    <%= link_to "Добавить карту", new_pack_card_path(@pack), class: "button green", title: "Добавить карту" %>
+  </div>
+</div>
+<% if !@pack.cards.blank? %>
+  <h2>Карты в колоде</h2>
+  <div class="cards-list">
+    <% @pack.cards.each do |card| %>
+      <%= render card %>
+    <% end %>
+  </div>
+<% end %>

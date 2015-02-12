@@ -2,19 +2,16 @@
 <html>
 <head>
   <title>Флэшкарточкер</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <body>
-  <section id="container">
-    <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "alert alert-#{key}", id: "alert-#{key}" )%>
-    <% end %>
-    <header class="clearfix">
-      <h1>Флэшкарточкер</h1>
-      <div class="user-nav-links">
+  <div class="header clearfix">
+    <div class="container">
+      <a href="/" class="logo"><%= image_tag("logo.png", alt: "Флэшкарточкер") %><span>Флэшкарточкер</span></a>
+      <div class="navigation-links user-nav">
         <% if current_user %>
           <%= link_to "Выход", logout_path %>
         <% else %>
@@ -23,18 +20,23 @@
         <% end %>
       </div>
       <% if current_user %>
-        <ul class="navigation-links">
-          <li><%= link_to 'Все карточки', cards_path %></li>
-          <li><%= link_to 'Добавить карточку', new_card_path %></a></li>
-        </ul>
+        <div class="navigation-links">
+          <%= link_to "Колоды", packs_path %>
+          <%= link_to "Добавить колоду", new_pack_path %>
+        </div>
       <% end %>
-    </header>
+    </div>
+  </div>
+  <div id="container">
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}", id: "alert-#{key}" )%>
+    <% end %>
 
-    <section class="content">
+    <div class="content">
       <%= yield %>
-    </section>
+    </div>
     <%# debug(params) if Rails.env.development? %>
-  </section>
+  </div>
 </body>
 
 </body>
