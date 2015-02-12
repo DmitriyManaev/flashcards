@@ -3,7 +3,7 @@ class CardsController < ApplicationController
   before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
-    @cards = @pack.cards.all
+    @cards = @pack.cards
   end
 
   def show

@@ -2,10 +2,14 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
   validate :fields_are_not_equal
+
   belongs_to :pack, required: true
   belongs_to :user
+
   before_create :set_review_date
+
   mount_uploader :image, ImageUploader
+
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated)

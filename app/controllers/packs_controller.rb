@@ -2,7 +2,7 @@ class PacksController < ApplicationController
   before_action :find_pack, only: [:edit, :show, :update, :destroy]
 
   def index
-    @packs = current_user.packs.all
+    @packs = current_user.packs
   end
 
   def show
