@@ -34,21 +34,97 @@ describe Card do
   end
 
   context "check answer" do
-    it "with right text" do
-      expect(card.correct_answer("тест")).to be true
-    end
-
     it "uppercase text with before and after spaces" do
       expect(card.correct_answer(" ТеСТ ")).to be true
     end
 
-    it "with wrong text" do
+    it "wrong text" do
       expect(card.correct_answer("тес")).to be false
     end
 
-    it "change review date" do
-      card.correct_answer("тест")
-      expect(card.review_date > Time.now + 2.days).to be true
+    it "right text" do
+      expect(card.correct_answer("тест")).to be true
+    end
+
+    context "with right text" do
+      before do
+        card.correct_answer("тест")
+      end
+
+      it "number_of_review equal 1" do
+        expect(card.number_of_review).to eq(1)
+      end
+
+      it "failed_attempts equal 0" do
+        expect(card.failed_attempts).to eq(0)
+      end
+
+      it "change added 12 hours to review date" do
+        expect(card.review_date > Time.now + 11.hours).to be true
+      end
+    end
+
+    context "with wrong text" do
+      before do
+        card.correct_answer("тес")
+      end
+
+      it "failed_attempts equal 1" do
+        expect(card.failed_attempts).to eq(1)
+      end
+
+      it "number_of_review equal 0" do
+        expect(card.number_of_review).to eq(0)
+      end
+    end
+
+    context "wrong answer more than 3 times in a row" do
+      let(:card) { FactoryGirl.create(:card,
+                                      translated_text: "тест",
+                                      review_date: Time.now + 7.days,
+                                      number_of_review: 3,
+                                      failed_attempts: 3)
+      }
+
+      before do
+        card.correct_answer("тес")
+      end
+
+      it "failed_attempts equal 0" do
+        expect(card.failed_attempts).to eq(0)
+      end
+
+      it "number_of_review equal 0" do
+        expect(card.number_of_review).to eq(0)
+      end
+
+      it "review_date less than 13 hours" do
+        expect(card.review_date < Time.now + 13.hours).to be true
+      end
+
+      it "review_date more than 11 hours" do
+        expect(card.review_date > Time.now + 11.hours).to be true
+      end
+    end
+
+    context "sixth or more checking" do
+      let(:card) { FactoryGirl.create(:card,
+                                      translated_text: "тест",
+                                      review_date: Time.now + 28.days,
+                                      number_of_review: 5)
+      }
+
+      before do
+        card.correct_answer("тест")
+      end
+
+      it "review_date more than 27 days" do
+        expect(card.review_date > Time.now + 27.days).to be true
+      end
+
+      it "review_date less than 29 days" do
+        expect(card.review_date < Time.now + 29.days).to be true
+      end
     end
   end
 end
