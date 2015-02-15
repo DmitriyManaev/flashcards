@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20150215071643) do
     t.string   "original_text"
     t.string   "translated_text"
     t.datetime "review_date"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "pack_id"
     t.string   "image"
-    t.integer  "check_number",    default: 0
-    t.integer  "failed_attempts", default: 0
+    t.integer  "number_of_review", default: 0
+    t.integer  "failed_attempts",  default: 0
   end
 
   add_index "cards", ["pack_id"], name: "index_cards_on_pack_id", using: :btree

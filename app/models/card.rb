@@ -12,21 +12,21 @@ class Card < ActiveRecord::Base
 
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
-  REVIEW_TIME_INTERVAL = [12.hours, 3.days, 7.days, 14.days, 28.days]
+  INTERVALS_TO_REVIEW = [12.hours, 3.days, 7.days, 14.days, 28.days]
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
-      self.check_number = 4 if check_number >= 5
-      update_attributes(review_date: Time.now + REVIEW_TIME_INTERVAL[check_number],
-                        check_number: check_number + 1,
+      self.number_of_review = 4 if number_of_review >= 5
+      update_attributes(review_date: Time.now + INTERVALS_TO_REVIEW[number_of_review],
+                        number_of_review: number_of_review + 1,
                         failed_attempts: 0)
     else
       self.failed_attempts += 1
       if (1..3).include? failed_attempts
         update_attributes(failed_attempts: failed_attempts)
       else
-        update_attributes(review_date: Time.now + REVIEW_TIME_INTERVAL[0],
-                          check_number: 0,
+        update_attributes(review_date: Time.now + INTERVALS_TO_REVIEW[0],
+                          number_of_review: 0,
                           failed_attempts: 0)
       end
       return false

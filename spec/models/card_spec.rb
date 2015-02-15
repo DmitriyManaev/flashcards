@@ -51,8 +51,8 @@ describe Card do
         card.correct_answer("тест")
       end
 
-      it "check_number equal 1" do
-        expect(card.check_number).to eq(1)
+      it "number_of_review equal 1" do
+        expect(card.number_of_review).to eq(1)
       end
 
       it "failed_attempts equal 0" do
@@ -73,8 +73,8 @@ describe Card do
         expect(card.failed_attempts).to eq(1)
       end
 
-      it "check_number equal 0" do
-        expect(card.check_number).to eq(0)
+      it "number_of_review equal 0" do
+        expect(card.number_of_review).to eq(0)
       end
     end
 
@@ -82,7 +82,7 @@ describe Card do
       let(:card) { FactoryGirl.create(:card,
                                       translated_text: "тест",
                                       review_date: Time.now + 7.days,
-                                      check_number: 3,
+                                      number_of_review: 3,
                                       failed_attempts: 3)
       }
 
@@ -94,8 +94,8 @@ describe Card do
         expect(card.failed_attempts).to eq(0)
       end
 
-      it "check_number equal 0" do
-        expect(card.check_number).to eq(0)
+      it "number_of_review equal 0" do
+        expect(card.number_of_review).to eq(0)
       end
 
       it "review_date less than 13 hours" do
@@ -111,7 +111,7 @@ describe Card do
       let(:card) { FactoryGirl.create(:card,
                                       translated_text: "тест",
                                       review_date: Time.now + 28.days,
-                                      check_number: 5)
+                                      number_of_review: 5)
       }
 
       before do
