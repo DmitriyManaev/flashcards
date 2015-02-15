@@ -12,7 +12,7 @@ class Card < ActiveRecord::Base
 
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
-  ADDED_TIME = [ 12.hours, 3.days, 7.days, 14.days, 28.days ]
+  ADDED_TIME = [12.hours, 3.days, 7.days, 14.days, 28.days]
 
   def correct_answer(translated)
     if translated_text.mb_chars.downcase.strip == translated.mb_chars.downcase.strip
