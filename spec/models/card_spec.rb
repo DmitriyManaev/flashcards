@@ -55,8 +55,8 @@ describe Card do
         expect(card.check_number).to eq(1)
       end
 
-      it "fail_check equal 0" do
-        expect(card.fail_check).to eq(0)
+      it "failed_attempts equal 0" do
+        expect(card.failed_attempts).to eq(0)
       end
 
       it "change added 12 hours to review date" do
@@ -69,8 +69,8 @@ describe Card do
         card.correct_answer("тес")
       end
 
-      it "check_fail equal 1" do
-        expect(card.fail_check).to eq(1)
+      it "failed_attempts equal 1" do
+        expect(card.failed_attempts).to eq(1)
       end
 
       it "check_number equal 0" do
@@ -80,19 +80,18 @@ describe Card do
 
     context "wrong answer more than 3 times in a row" do
       let(:card) { FactoryGirl.create(:card,
-                                      original_text: "test",
                                       translated_text: "тест",
                                       review_date: Time.now + 7.days,
                                       check_number: 3,
-                                      fail_check: 3)
+                                      failed_attempts: 3)
       }
 
       before do
         card.correct_answer("тес")
       end
 
-      it "fail_check equal 0" do
-        expect(card.fail_check).to eq(0)
+      it "failed_attempts equal 0" do
+        expect(card.failed_attempts).to eq(0)
       end
 
       it "check_number equal 0" do
@@ -105,6 +104,26 @@ describe Card do
 
       it "review_date more than 11 hours" do
         expect(card.review_date > Time.now + 11.hours).to be true
+      end
+    end
+
+    context "sixth or more checking" do
+      let(:card) { FactoryGirl.create(:card,
+                                      translated_text: "тест",
+                                      review_date: Time.now + 28.days,
+                                      check_number: 5)
+      }
+
+      before do
+        card.correct_answer("тест")
+      end
+
+      it "review_date more than 27 days" do
+        expect(card.review_date > Time.now + 27.days).to be true
+      end
+
+      it "review_date less than 29 days" do
+        expect(card.review_date < Time.now + 29.days).to be true
       end
     end
   end

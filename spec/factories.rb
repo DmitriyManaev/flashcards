@@ -15,7 +15,7 @@ FactoryGirl.define do
     translated_text "пример"
     review_date Time.now
     check_number 0
-    fail_check 0
+    failed_attempts 0
     pack
   end
 end

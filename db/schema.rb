@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150215071643) do
     t.integer  "pack_id"
     t.string   "image"
     t.integer  "check_number",    default: 0
-    t.integer  "fail_check",      default: 0
+    t.integer  "failed_attempts", default: 0
   end
 
   add_index "cards", ["pack_id"], name: "index_cards_on_pack_id", using: :btree
