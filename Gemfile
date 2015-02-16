@@ -16,6 +16,7 @@ gem 'fog'
 gem 'figaro'
 gem 'unicorn'
 gem 'pg'
+gem 'levenshtein-ffi', require: 'levenshtein'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
