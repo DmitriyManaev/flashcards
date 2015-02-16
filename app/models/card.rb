@@ -45,7 +45,7 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def to_same word
+  def to_same(word)
     word.mb_chars.downcase.strip.to_s
   end
 end
