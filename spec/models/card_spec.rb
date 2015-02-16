@@ -39,7 +39,7 @@ describe Card do
     end
 
     it "wrong text" do
-      expect(card.correct_answer("тес")).to be false
+      expect(card.correct_answer("те")).to be false
     end
 
     it "right text" do
@@ -48,7 +48,7 @@ describe Card do
 
     context "with right text" do
       before do
-        card.correct_answer("тест")
+        card.correct_answer("тес")
       end
 
       it "number_of_review equal 1" do
@@ -66,7 +66,7 @@ describe Card do
 
     context "with wrong text" do
       before do
-        card.correct_answer("тес")
+        card.correct_answer("те")
       end
 
       it "failed_attempts equal 1" do
@@ -87,7 +87,7 @@ describe Card do
       }
 
       before do
-        card.correct_answer("тес")
+        card.correct_answer("те")
       end
 
       it "failed_attempts equal 0" do
