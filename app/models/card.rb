@@ -15,7 +15,7 @@ class Card < ActiveRecord::Base
   INTERVALS_TO_REVIEW = [12.hours, 3.days, 7.days, 14.days, 28.days]
 
   def correct_answer(translated)
-    if Levenshtein.distance(to_same(translated_text), to_same(translated)) <= 2
+    if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
       self.number_of_review = 4 if number_of_review >= 5
       update_attributes(review_date: Time.now + INTERVALS_TO_REVIEW[number_of_review],
                         number_of_review: number_of_review + 1,
@@ -45,7 +45,7 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def to_same(word)
+  def sanitize(word)
     word.mb_chars.downcase.strip.to_s
   end
 end
