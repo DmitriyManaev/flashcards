@@ -4,12 +4,12 @@ class SuperMemo
     e_factor = get_e_factor(card.e_factor, quality_answer)
     interval = number_of_review = 0
     if answer
+      number_of_review = card.number_of_review + 1
       if quality_answer >= 4
         interval = get_interval(card.interval_to_review,
-                                card.number_of_review + 1,
+                                number_of_review,
                                 e_factor)
       end
-      number_of_review = card.number_of_review + 1
     end
     card.update_attributes(review_date: Time.now + interval.days,
                            interval_to_review: interval,
@@ -29,7 +29,7 @@ class SuperMemo
     quality
   end
 
-  #get E-factor SuperMemo2 (step 5) http://www.supermemo.com/english/ol/sm2.htm
+  # get E-factor SuperMemo2 (step 5) http://www.supermemo.com/english/ol/sm2.htm
   def self.get_e_factor(e_factor, q)
     e_factor += (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
     e_factor = 1.3 if e_factor < 1.3
