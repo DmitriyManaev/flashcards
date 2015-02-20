@@ -7,6 +7,7 @@
       <%= form_tag check_card_path, class: "form check-card-form" do %>
         <%= text_field_tag "translated_text", nil, placeholder: "Перевод", class: "field" %>
         <%= hidden_field_tag "card_id", @card.id %>
+        <%= hidden_field_tag "time_answer", "1" %>
         <%= button_tag "Проверить", class: "button" %>
       <% end %>
     </div>
@@ -16,3 +17,8 @@
 <% else %>
   <p>Войдите или зарегистрируйтесь</p>
 <% end %>
+<script type="text/javascript">
+  setInterval(function(){
+    $("#time_answer").val(parseInt($("#time_answer").val()) + 1);
+  }, 1000);
+</script>

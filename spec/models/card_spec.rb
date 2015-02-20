@@ -34,96 +34,91 @@ describe Card do
   end
 
   context "check answer" do
+    GOOD_ANSWER_TIME = 6
+    BAD_ANSWER_TIME = 15
+
     it "uppercase text with before and after spaces" do
-      expect(card.correct_answer(" ТеСТ ")).to be true
+      expect(card.correct_answer(" ТеСТ ", GOOD_ANSWER_TIME)).to be true
     end
 
     it "wrong text" do
-      expect(card.correct_answer("те")).to be false
+      expect(card.correct_answer("те", GOOD_ANSWER_TIME)).to be false
     end
 
     it "right text" do
-      expect(card.correct_answer("тест")).to be true
+      expect(card.correct_answer("тест", GOOD_ANSWER_TIME)).to be true
     end
 
-    context "with right text" do
+    context "with right text and GOOD answer time" do
       before do
-        card.correct_answer("тес")
+        card.correct_answer("тес", GOOD_ANSWER_TIME)
       end
 
       it "number_of_review equal 1" do
         expect(card.number_of_review).to eq(1)
       end
 
-      it "failed_attempts equal 0" do
-        expect(card.failed_attempts).to eq(0)
+      it "added more then 23 hours to review date" do
+        expect(card.review_date > Time.now + 23.hours).to be true
       end
 
-      it "change added 12 hours to review date" do
-        expect(card.review_date > Time.now + 11.hours).to be true
+      it "added less then 25 hours to review date" do
+        expect(card.review_date < Time.now + 25.hours).to be true
+      end
+
+      it "interval_to_review equal 1" do
+        expect(card.interval_to_review).to eq(1)
+      end
+
+      it "E-factor between 1.3 and 2.5" do
+        expect((1.3..2.5).include? card.e_factor).to be true
       end
     end
 
-    context "with wrong text" do
+    context "with right text and BAD answer time" do
       before do
-        card.correct_answer("те")
+        card.correct_answer("тес", BAD_ANSWER_TIME)
       end
 
-      it "failed_attempts equal 1" do
-        expect(card.failed_attempts).to eq(1)
+      it "interval_to_review equal 0" do
+        expect(card.interval_to_review).to eq(0)
       end
 
-      it "number_of_review equal 0" do
-        expect(card.number_of_review).to eq(0)
+      it "review_date equal current time" do
+        expect(card.review_date < Time.now + 1.hours).to be true
+      end
+
+      it "E-factor between 1.3 and 2.5" do
+        expect((1.3..2.5).include? card.e_factor).to be true
       end
     end
 
-    context "wrong answer more than 3 times in a row" do
+    context "with wrong text and number_of_review equal 2" do
       let(:card) { FactoryGirl.create(:card,
+                                      original_text: "test",
                                       translated_text: "тест",
-                                      review_date: Time.now + 7.days,
-                                      number_of_review: 3,
-                                      failed_attempts: 3)
+                                      number_of_review: 2,
+                                      interval_to_review: 6)
       }
 
       before do
-        card.correct_answer("те")
+        card.correct_answer("те", GOOD_ANSWER_TIME)
       end
 
-      it "failed_attempts equal 0" do
-        expect(card.failed_attempts).to eq(0)
+      it "interval to review equal 0" do
+        expect(card.interval_to_review).to eq(0)
       end
 
-      it "number_of_review equal 0" do
+      it "number of review equal 0" do
         expect(card.number_of_review).to eq(0)
       end
 
-      it "review_date less than 13 hours" do
-        expect(card.review_date < Time.now + 13.hours).to be true
+      it "review_date equal current time" do
+        expect(card.review_date < Time.now + 1.hours).to be true
       end
 
-      it "review_date more than 11 hours" do
-        expect(card.review_date > Time.now + 11.hours).to be true
-      end
-    end
-
-    context "sixth or more checking" do
-      let(:card) { FactoryGirl.create(:card,
-                                      translated_text: "тест",
-                                      review_date: Time.now + 28.days,
-                                      number_of_review: 5)
-      }
-
-      before do
-        card.correct_answer("тест")
-      end
-
-      it "review_date more than 27 days" do
-        expect(card.review_date > Time.now + 27.days).to be true
-      end
-
-      it "review_date less than 29 days" do
-        expect(card.review_date < Time.now + 29.days).to be true
+      it "E-factor between 1.3 and 2.5" do
+        expect((1.3..2.5).include? card.e_factor).to be true
       end
     end
   end
