@@ -1,7 +1,6 @@
 class ApplySuperMemoAlgorithm
   def self.call(card, time_answer, answer)
-    quality_answer = get_quality_answer(time_answer.to_i)
-    quality_answer -= 3 if !answer
+    quality_answer = get_quality_answer(time_answer.to_i, answer)
     e_factor = get_e_factor(card.e_factor, quality_answer)
     interval = number_of_review = 0
     if answer
@@ -18,14 +17,16 @@ class ApplySuperMemoAlgorithm
                            e_factor: e_factor)
   end
 
-  def self.get_quality_answer(time_answer)
+  def self.get_quality_answer(time_answer, answer)
     if time_answer < 7
-      5
+      quality = 5
     elsif (7..12).include? time_answer
-      4
+      quality = 4
     else
-      3
+      quality = 3
     end
+    quality -= 3 if !answer
+    quality
   end
 
   def self.get_e_factor(e_factor, q)
