@@ -12,11 +12,11 @@ class Card < ActiveRecord::Base
 
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
-  def correct_answer(translated, time_answer)
+  def correct_answer(translated, answer_time)
     if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
-      ApplySuperMemoAlgorithm.call(self, time_answer, true)
+      SuperMemo.call(self, answer_time, true)
     else
-      ApplySuperMemoAlgorithm.call(self, time_answer, false)
+      SuperMemo.call(self, answer_time, false)
       return false
     end
   end
