@@ -3,8 +3,6 @@ class ApplySuperMemoAlgorithm
     quality_answer = get_quality_answer(time_answer.to_i)
     quality_answer -= 3 if !answer
     e_factor = get_e_factor(card.e_factor, quality_answer)
-    e_factor = 1.3 if e_factor < 1.3
-    e_factor = 2.5 if e_factor > 2.5
     if answer
       interval = 0
       if quality_answer >= 4
@@ -36,7 +34,10 @@ class ApplySuperMemoAlgorithm
   end
 
   def self.get_e_factor(e_factor, q)
-    e_factor + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
+    e_factor += (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
+    e_factor = 1.3 if e_factor < 1.3
+    e_factor = 2.5 if e_factor > 2.5
+    return e_factor
   end
 
   def self.get_interval(interval, number_of_review, e_factor)
