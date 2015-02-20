@@ -1,4 +1,5 @@
 class Card < ActiveRecord::Base
+  include SuperMemo
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
   validate :fields_are_not_equal

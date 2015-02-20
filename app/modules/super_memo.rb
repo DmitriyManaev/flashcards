@@ -1,4 +1,4 @@
-class SuperMemo
+module SuperMemo
   def self.call(card, answer_time, answer)
     quality_answer = get_quality_answer(answer_time.to_i, answer)
     e_factor = get_e_factor(card.e_factor, quality_answer)
