@@ -1,7 +1,4 @@
-require "card_ext/super_memo"
-
 class Card < ActiveRecord::Base
-  include SuperMemo
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
   validate :fields_are_not_equal
@@ -16,10 +13,11 @@ class Card < ActiveRecord::Base
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated, answer_time)
+    super_memo = SuperMemo.new(self, answer_time)
     if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
-      apply_super_memo(answer_time, true)
+      super_memo.call(true)
     else
-      apply_super_memo(answer_time, false)
+      super_memo.call(false)
       return false
     end
   end
