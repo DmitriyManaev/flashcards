@@ -12,9 +12,9 @@ module SuperMemo
       end
     end
     update_attributes(review_date: Time.now + interval.days,
-                           interval_to_review: interval,
-                           number_of_review: number_of_review,
-                           e_factor: e_factor)
+                      interval_to_review: interval,
+                      number_of_review: number_of_review,
+                      e_factor: e_factor)
   end
 
   def get_quality_answer(answer_time, answer)
