@@ -4,14 +4,14 @@ module SuperMemo
     e_factor = get_e_factor(self.e_factor, quality_answer)
     interval = number_of_review = 0
     if answer
-      number_of_review = self.number_of_review + 1
+      number_of_review += 1
       if quality_answer >= 4
-        interval = get_interval(self.interval_to_review,
+        interval = get_interval(interval_to_review,
                                 number_of_review,
                                 e_factor)
       end
     end
-    self.update_attributes(review_date: Time.now + interval.days,
+    update_attributes(review_date: Time.now + interval.days,
                            interval_to_review: interval,
                            number_of_review: number_of_review,
                            e_factor: e_factor)
