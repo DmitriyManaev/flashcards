@@ -34,7 +34,8 @@ class SuperMemo
 
   # get E-factor SuperMemo2 (step 5) http://www.supermemo.com/english/ol/sm2.htm
   def get_e_factor
-    @e_factor += (0.1-(5-@quality_answer)*(0.08+(5-@quality_answer)*0.02))
+    q = @quality_answer
+    @e_factor += (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
     @e_factor = 1.3 if @e_factor < 1.3
     @e_factor = 2.5 if @e_factor > 2.5
   end
