@@ -1,4 +1,5 @@
 class Card < ActiveRecord::Base
+  require "card_ext/super_memo"
   include SuperMemo
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
@@ -15,9 +16,9 @@ class Card < ActiveRecord::Base
 
   def correct_answer(translated, answer_time)
     if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
-      SuperMemo.call(self, answer_time, true)
+      apply_super_memo(answer_time, true)
     else
-      SuperMemo.call(self, answer_time, false)
+      apply_super_memo(answer_time, false)
       return false
     end
   end
