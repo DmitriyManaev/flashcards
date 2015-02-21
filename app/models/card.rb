@@ -1,5 +1,6 @@
+require "card_ext/super_memo"
+
 class Card < ActiveRecord::Base
-  require "card_ext/super_memo"
   include SuperMemo
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
