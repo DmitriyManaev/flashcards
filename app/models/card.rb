@@ -13,16 +13,16 @@ class Card < ActiveRecord::Base
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated, answer_time)
-    super_memo = SuperMemo.new(self, answer_time)
-    if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
-      super_memo.call(true)
-    else
-      super_memo.call(false)
-      return false
-    end
+    answer = levenshtein(translated_text, translated) ? true : false
+    super_memo = SuperMemo.new(self, answer_time, answer).call
+    answer
   end
 
   private
+
+  def levenshtein(translated_text, translated)
+    Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
+  end
 
   def set_review_date
     self.review_date = Time.now
