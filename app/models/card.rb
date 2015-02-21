@@ -14,7 +14,7 @@ class Card < ActiveRecord::Base
 
   def correct_answer(translated, answer_time)
     answer = levenshtein(translated_text, translated) ? true : false
-    super_memo = SuperMemo.new(self, answer_time, answer).call
+    SuperMemo.new(self, answer_time, answer).call
     answer
   end
 
