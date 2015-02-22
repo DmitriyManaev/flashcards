@@ -121,5 +121,26 @@ describe Card do
         expect((1.3..2.5).include? card.e_factor).to be true
       end
     end
+
+    context "with right text and number_of_review equal 2" do
+      let(:card) { FactoryGirl.create(:card,
+                                      original_text: "test",
+                                      translated_text: "тест",
+                                      number_of_review: 2,
+                                      interval_to_review: 6)
+      }
+
+      before do
+        card.correct_answer("тест", GOOD_ANSWER_TIME)
+      end
+
+      it "number of review equal 0" do
+        expect(card.number_of_review).to eq(3)
+      end
+
+      it "E-factor between 1.3 and 2.5" do
+        expect((1.3..2.5).include? card.e_factor).to be true
+      end
+    end
   end
 end
