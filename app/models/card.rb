@@ -12,28 +12,15 @@ class Card < ActiveRecord::Base
 
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
-  INTERVALS_TO_REVIEW = [12.hours, 3.days, 7.days, 14.days, 28.days]
-
-  def correct_answer(translated)
-    if Levenshtein.distance(sanitize(translated_text), sanitize(translated)) <= 2
-      self.number_of_review = 4 if number_of_review >= 5
-      update_attributes(review_date: Time.now + INTERVALS_TO_REVIEW[number_of_review],
-                        number_of_review: number_of_review + 1,
-                        failed_attempts: 0)
-    else
-      self.failed_attempts += 1
-      if (1..3).include? failed_attempts
-        update_attributes(failed_attempts: failed_attempts)
-      else
-        update_attributes(review_date: Time.now + INTERVALS_TO_REVIEW[0],
-                          number_of_review: 0,
-                          failed_attempts: 0)
-      end
-      return false
-    end
+  def correct_answer(answer, answer_time)
+    SuperMemo.new(self, answer_time, right_answer?(answer)).call
   end
 
   private
+
+  def right_answer?(answer)
+    Levenshtein.distance(sanitize(translated_text), sanitize(answer)) <= 2
+  end
 
   def set_review_date
     self.review_date = Time.now

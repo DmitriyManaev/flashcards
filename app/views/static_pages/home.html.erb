@@ -7,6 +7,7 @@
       <%= form_tag check_card_path, class: "form check-card-form" do %>
         <%= text_field_tag "translated_text", nil, placeholder: "Перевод", class: "field" %>
         <%= hidden_field_tag "card_id", @card.id %>
+        <%= hidden_field_tag "answer_time", "1" %>
         <%= button_tag "Проверить", class: "button" %>
       <% end %>
     </div>
