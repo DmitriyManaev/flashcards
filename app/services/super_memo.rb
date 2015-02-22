@@ -19,8 +19,8 @@ class SuperMemo
 
   private
 
-  # quality_answer depends on the speed of the card verification
-  # less than 7 sec - Good, from 7 to 12 - Normal, more 12 - Bad
+  # quality_answer depends on the time of the card verification
+  # less than 7 sec - "good", from 7 to 12 - "normal", more 12 - "bad"
   # if the answer is incorrect quality_answer is from 0 to 3
   def set_quality_answer
     if @answer_time < 7
@@ -42,7 +42,7 @@ class SuperMemo
   end
 
   def interval
-    if @quality_answer <= 4
+    if @quality_answer < 4 # if "bad" card must be repeated today
       0
     else
       case @card.number_of_review
