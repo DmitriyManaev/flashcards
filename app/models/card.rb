@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   scope :actual, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
 
   def correct_answer(translated, answer_time)
-    answer = levenshtein(translated_text, translated) ? true : false
+    answer = levenshtein(translated_text, translated)
     SuperMemo.new(self, answer_time, answer).call
     answer
   end
