@@ -2,7 +2,8 @@ class SuperMemo
   def initialize(card, answer_time, answer)
     @card = card
     @answer_time = answer_time.to_i
-    @interval = @number_of_review = 0
+    @interval = 0
+    @number_of_review = 0
     @e_factor = @card.e_factor
     @answer = answer
   end
