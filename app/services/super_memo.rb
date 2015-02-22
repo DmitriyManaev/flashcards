@@ -20,8 +20,8 @@ class SuperMemo
   private
 
   # quality_answer depends on the time of the card verification
-  # less then 7 sec - "good", is between 7 and 12 - "normal",
-  # more then 12 - "bad"
+  # less than 7 sec - "good", is from 7 to 12 - "normal",
+  # more than 12 - "bad"
   # if the answer is incorrect quality_answer is from 0 to 3
   def set_quality_answer
     if @answer_time < 7

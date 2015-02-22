@@ -71,7 +71,7 @@ describe Card do
       end
 
       it "E-factor between 1.3 and 2.5" do
-        expect((1.3..2.5).include? card.e_factor).to be true
+        expect(card.e_factor).to be_between(1.3, 2.5)
       end
     end
 
@@ -89,7 +89,7 @@ describe Card do
       end
 
       it "E-factor between 1.3 and 2.5" do
-        expect((1.3..2.5).include? card.e_factor).to be true
+        expect(card.e_factor).to be_between(1.3, 2.5)
       end
     end
 
@@ -118,7 +118,7 @@ describe Card do
       end
 
       it "E-factor between 1.3 and 2.5" do
-        expect((1.3..2.5).include? card.e_factor).to be true
+        expect(card.e_factor).to be_between(1.3, 2.5)
       end
     end
 
@@ -139,7 +139,7 @@ describe Card do
       end
 
       it "E-factor between 1.3 and 2.5" do
-        expect((1.3..2.5).include? card.e_factor).to be true
+        expect(card.e_factor).to be_between(1.3, 2.5)
       end
     end
   end
