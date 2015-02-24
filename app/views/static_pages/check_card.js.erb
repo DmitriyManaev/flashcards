@@ -1,0 +1,6 @@
+$(".flash_area").html("<%= escape_javascript(render partial: 'notice', locals: { flash: flash } ) %>");
+<% if @card %>
+  $("#main-card-item").html("<%= escape_javascript(render partial: 'check_card_form', locals: { card: @card } ) %>");
+<% else %>
+  $(".content").html("<p>Карт на сегодня больше нет!</p>");
+<% end %>

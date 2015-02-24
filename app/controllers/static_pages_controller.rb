@@ -2,22 +2,29 @@ class StaticPagesController < ApplicationController
   skip_before_action :require_login, only: [:home]
 
   def home
-    if current_user
-      if current_user.current_pack
-        @card = current_user.current_pack.cards.actual.first
-      else
-        @card = current_user.cards.actual.first
-      end
-    end
+    get_card if current_user
   end
 
   def check_card
     @card = current_user.cards.find(params[:card_id])
     if @card.correct_answer(params[:translated_text], params[:answer_time])
-      flash[:success] = "Правильно"
+      flash.now[:success] = "Правильно"
     else
-      flash[:fail] = "Не правильно"
+      flash.now[:fail] = "Не правильно"
     end
-    redirect_to root_path
+    get_card
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private
+
+  def get_card
+    if current_user.current_pack
+      @card = current_user.current_pack.cards.actual.first
+    else
+      @card = current_user.cards.actual.first
+    end
   end
 end
