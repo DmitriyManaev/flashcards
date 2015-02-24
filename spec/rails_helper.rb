@@ -4,7 +4,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rspec/rails"
 require "capybara/rails"
 require "helpers/helpers_spec.rb"
-Capybara.javascript_driver = :webkit
+
+Capybara.javascript_driver = :selenium
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|

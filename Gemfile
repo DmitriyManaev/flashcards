@@ -27,8 +27,9 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'capybara-webkit', '~> 1.4.1'
+#  gem 'capybara-webkit', '0.13.1'
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
 group :production do
