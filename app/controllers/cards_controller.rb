@@ -42,13 +42,13 @@ class CardsController < ApplicationController
   end
 
   def review_card
-    card = current_user.cards.find(params[:card_id])
-    if card.correct_answer(params[:translated_text], params[:answer_time])
+    get_card
+    if @card.correct_answer(params[:translated_text], params[:answer_time])
       flash.now[:success] = "Правильно"
     else
       flash.now[:fail] = "Не правильно"
     end
-    set_card
+    get_card_for_review
     respond_to do |format|
       format.js
     end
@@ -60,7 +60,11 @@ class CardsController < ApplicationController
     params.require(:card).permit(:original_text, :translated_text, :image)
   end
 
-  def set_card
+  def get_card
+    @card = current_user.cards.find(params[:card_id])
+  end
+
+  def get_card_for_review
     @card = current_user.card_for_review
   end
 
