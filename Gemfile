@@ -28,7 +28,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
+  gem 'poltergeist'
+  gem 'phantomjs'
 end
 
 group :production do

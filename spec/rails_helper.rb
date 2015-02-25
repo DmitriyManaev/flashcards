@@ -4,8 +4,10 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rspec/rails"
 require "capybara/rails"
 require "helpers/helpers_spec.rb"
+#require 'capybara/poltergeist'
+require 'phantomjs/poltergeist'
 
-Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :poltergeist
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
@@ -33,4 +35,8 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+end
+
+Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
 end
