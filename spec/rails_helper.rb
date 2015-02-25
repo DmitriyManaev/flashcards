@@ -7,7 +7,7 @@ require "helpers/helpers_spec.rb"
 require "phantomjs/poltergeist"
 
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
+  Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
 end
 
 Capybara.javascript_driver = :poltergeist
