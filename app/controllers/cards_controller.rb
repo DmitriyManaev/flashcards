@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
   before_action :find_pack, except: [:review_card]
   before_action :find_card, only: [:edit, :show, :update, :destroy]
+  before_action :get_card, only: [:review_card]
 
   def index
     @cards = @pack.cards
@@ -42,7 +43,6 @@ class CardsController < ApplicationController
   end
 
   def review_card
-    get_card
     if @card.correct_answer(params[:translated_text], params[:answer_time])
       flash.now[:success] = "Правильно"
     else
