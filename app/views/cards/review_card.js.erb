@@ -1,6 +1,6 @@
 $(".flash_area").html("<%= escape_javascript(render 'shared/notice', flash: flash) %>");
 <% if @card %>
-  $("#main-card-item").html("<%= escape_javascript(render 'check_card_form', card: @card) %>");
+  $("#main-card-item").html("<%= escape_javascript(render 'static_pages/check_card_form', card: @card) %>");
 <% else %>
   $(".content").html("<p>Карт на сегодня больше нет!</p>");
 <% end %>
