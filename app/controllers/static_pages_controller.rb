@@ -1,8 +1,8 @@
 class StaticPagesController < ApplicationController
   skip_before_action :require_login, only: [:home]
+  before_action :set_card, only: [:home]
 
   def home
-    get_card if current_user
   end
 
   def check_card
@@ -12,19 +12,13 @@ class StaticPagesController < ApplicationController
     else
       flash.now[:fail] = "Не правильно"
     end
-    get_card
+    set_card
     respond_to do |format|
       format.js
     end
   end
 
-  private
-
-  def get_card
-    if current_user.current_pack
-      @card = current_user.current_pack.cards.actual.first
-    else
-      @card = current_user.cards.actual.first
-    end
+  def set_card
+    @card = current_user.get_card if current_user
   end
 end

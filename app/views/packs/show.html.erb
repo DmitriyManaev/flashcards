@@ -1,6 +1,6 @@
 <h1>Колода &laquo<%= @pack.title %>&raquo</h1>
 <div class="pack-item<%= " current" if @pack.current? %>" id="pack-item<%= @pack.id %>">
-  <%= image_tag @pack.image.url.to_s %>
+  <%= image_tag @pack.image.url %>
   <div class="pack-buttons">
     <%= link_to "Редактировать", edit_pack_path, class: "button yellow", title: "Редактировать" %>
     <% if !@pack.current? %>

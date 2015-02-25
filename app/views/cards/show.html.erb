@@ -2,7 +2,7 @@
   <div class="review-date">
     Дата: <%= @card.review_date.strftime("%d/%m/%Y") %>
   </div>
-  <%= image_tag @card.image.url(:thumb).to_s %>
+  <%= image_tag @card.image.url(:thumb) %>
   <div class="words-wrap">
     <%= @card.original_text %> | <%= @card.translated_text %>
   </div>

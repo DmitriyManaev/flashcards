@@ -1,5 +1,5 @@
 <div class="review-date">Дата: <%= card.review_date.strftime "%d/%m/%Y" %></div>
-<%= image_tag card.image.url.to_s %>
+<%= image_tag card.image.url %>
 <div class="original-text"><%= card.original_text %></div>
 <%= form_tag check_card_path, remote: true, class: "form check-card-form" do %>
   <%= text_field_tag "translated_text", nil, placeholder: "Перевод", class: "field" %>

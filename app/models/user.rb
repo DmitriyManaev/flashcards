@@ -11,4 +11,12 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
   accepts_nested_attributes_for :authentications
+
+  def get_card
+    if current_pack
+      current_pack.cards.actual.first
+    else
+      cards.actual.first
+    end
+  end
 end
