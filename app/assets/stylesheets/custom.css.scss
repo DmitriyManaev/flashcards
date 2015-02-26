@@ -179,14 +179,12 @@ html[xmlns].clearfix {
       text-decoration: none;
     }
   }
-  .main-card-item {
-    .review-form {
-      width: 360px;
-      margin: 15px auto 0;
-      .field {
-        width: 240px;
-        height: 20px;
-      }
+  .review-form {
+    width: 360px;
+    margin: 15px auto 0;
+    .field {
+      width: 240px;
+      height: 20px;
     }
   }
   .cards-list {
