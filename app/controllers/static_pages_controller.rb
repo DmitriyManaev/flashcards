@@ -3,5 +3,9 @@ class StaticPagesController < ApplicationController
 
   def home
     @card = current_user.card_for_review if current_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 end

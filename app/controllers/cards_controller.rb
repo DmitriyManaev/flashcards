@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_pack, except: [:review, :get_card_for_review]
+  before_action :find_pack, except: [:review]
   before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -48,13 +48,6 @@ class CardsController < ApplicationController
     else
       flash.now[:fail] = "Не правильно"
     end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def get_card_for_review
-    @card = current_user.card_for_review
     respond_to do |format|
       format.js
     end
