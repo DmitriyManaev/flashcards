@@ -1,7 +1,7 @@
 <% if current_user %>
   <% if @card %>
     <div class="main-card-item" id="main-card-item">
-      <%= render "check_card_form", card: @card %>
+      <%= render "review_form", card: @card %>
     </div>
   <% else %>
     <p>Карт на сегодня больше нет!</p>

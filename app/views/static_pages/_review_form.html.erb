@@ -1,7 +1,7 @@
 <div class="review-date">Дата: <%= card.review_date.strftime "%d/%m/%Y" %></div>
 <%= image_tag card.image.url %>
 <div class="original-text"><%= card.original_text %></div>
-<%= form_tag review_card_path, remote: true, class: "form check-card-form" do %>
+<%= form_tag review_card_path, remote: true, class: "form review-form" do %>
   <%= text_field_tag "translated_text", nil, placeholder: "Перевод", class: "field" %>
   <%= hidden_field_tag "card_id", card.id %>
   <%= hidden_field_tag "answer_time", "1" %>

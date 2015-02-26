@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "logout", to: "user_sessions#destroy"
   get "signup", to: "users#new"
   post "review_card", to: "cards#review_card"
+  get "get_card_for_review", to: "cards#get_card_for_review"
   match "oauth/callback", to: "oauths#callback", via: [:get, :post]
   get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
   post "set_current_pack", to: "packs#set_current_pack"
