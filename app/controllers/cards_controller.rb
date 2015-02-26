@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :find_pack, except: [:review]
+  before_action :find_pack
   before_action :find_card, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -39,18 +39,6 @@ class CardsController < ApplicationController
     @card.destroy
     flash[:success] = "Карта удалена"
     redirect_to pack_cards_path
-  end
-
-  def review
-    @card = current_user.cards.find(params[:card_id])
-    if @card.correct_answer(params[:translated_text], params[:answer_time])
-      flash.now[:success] = "Правильно"
-    else
-      flash.now[:fail] = "Не правильно"
-    end
-    respond_to do |format|
-      format.js
-    end
   end
 
   private
