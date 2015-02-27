@@ -178,13 +178,14 @@ html[xmlns].clearfix {
       display: block;
       text-decoration: none;
     }
-    .check-card-form {
-      width: 360px;
-      margin: 15px auto 0;
-      .field {
-        width: 240px;
-        height: 20px;
-      }
+  }
+  .review-form {
+    width: 360px;
+    margin: 15px auto 0;
+
+    .field {
+      width: 240px;
+      height: 20px;
     }
   }
   .cards-list {

@@ -38,22 +38,22 @@ describe "Card" do
     end
   end
 
-  describe "check card on home page" do
-    before :each do
+  describe "check card on home page", js: true do
+    before do
       FactoryGirl.create(:card, translated_text: "пример")
       login
+    end
+
+    it "with wrong answer" do
+      fill_in "translated_text", with: "неправильный ответ"
+      click_button "Проверить"
+      expect(page).to have_content "Не правильно"
     end
 
     it "with right answer" do
       fill_in "translated_text", with: "пример"
       click_button "Проверить"
       expect(page).to have_content "Правильно"
-    end
-
-    it "with wrong answer" do
-      fill_in "translated_text", with: "не правильный ответ"
-      click_button "Проверить"
-      expect(page).to have_content "Не правильно"
     end
   end
 end

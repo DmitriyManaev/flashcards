@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   resources :packs do
     resources :cards
   end
+  resource :review
   get "login", to: "user_sessions#new"
   get "logout", to: "user_sessions#destroy"
   get "signup", to: "users#new"
-  post "check_card", to: "static_pages#check_card"
+  get "get_card_for_review", to: "cards#get_card_for_review"
   match "oauth/callback", to: "oauths#callback", via: [:get, :post]
   get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
   post "set_current_pack", to: "packs#set_current_pack"
