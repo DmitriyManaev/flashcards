@@ -2,7 +2,8 @@ $(".flash_area").html("<%= escape_javascript(render 'shared/notice', flash: flas
 $(".review-form").on("ajax:success",
   function(){
     $.ajax({
-      url: "<%= root_url %>"
+      url: "<%= root_path %>",
+      dataType: 'script'
     });
   }
 );

@@ -2,6 +2,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, presence: true
   validates :pack_id, presence: true
   validate :fields_are_not_equal
+  validates :original_text, uniqueness: { scope: :pack_id }
 
   belongs_to :pack, required: true
   belongs_to :user
