@@ -1,5 +1,5 @@
 <% if @card %>
-  $(".main-card-item").html("<%= escape_javascript(render 'review/form', card: @card) %>");
+  $(".main-card-item").html("<%= escape_javascript(render 'reviews/form', card: @card) %>");
 <% else %>
   $(".content").html("<p>Карт на сегодня больше нет!</p>");
 <% end %>
