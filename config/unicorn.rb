@@ -3,7 +3,7 @@ timeout 15
 preload_app true
 
 before_fork do
-  Signal.trap "TERM" do
+  Signal.trap "TERM" do |server, worker|
     puts "Unicorn master intercepting TERM and
           sending myself QUIT instead"
     Process.kill "QUIT", Process.pid
@@ -14,7 +14,7 @@ before_fork do
 end
 
 after_fork do
-  Signal.trap "TERM" do
+  Signal.trap "TERM" do |server, worker|
     puts "Unicorn worker intercepting TERM and doing
           nothing. Wait for master to send QUIT"
   end
